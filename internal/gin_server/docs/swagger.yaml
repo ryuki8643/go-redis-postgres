@@ -1,0 +1,112 @@
+definitions:
+  gin_server.Message:
+    properties:
+      message:
+        type: string
+    type: object
+  gin_server.UserRequest:
+    properties:
+      id:
+        type: string
+      momentData:
+        properties:
+          accuracy:
+            type: string
+          activity:
+            type: string
+          areaLandedAt:
+            type: string
+          battery:
+            type: integer
+          heading:
+            type: number
+          isCharging:
+            type: boolean
+          isMoving:
+            type: boolean
+          latLng:
+            items:
+              type: number
+            type: array
+          movingSpeed:
+            type: integer
+          status:
+            type: string
+        type: object
+    type: object
+info:
+  contact: {}
+  license:
+    name: ryuki
+  title: batch-redis
+  version: "2.0"
+paths:
+  /:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin_server.Message'
+      summary: helloを返す
+      tags:
+      - helloWorld
+    put:
+      parameters:
+      - description: Article Json
+        in: body
+        name: article_json
+        required: true
+        schema:
+          $ref: '#/definitions/gin_server.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin_server.Message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin_server.Message'
+      summary: データ送信
+      tags:
+      - redis
+  /{user_id}:
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin_server.Message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin_server.Message'
+      summary: redis読み取り
+      tags:
+      - redis
+  /swagger:
+    get:
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin_server.Message'
+      summary: /swagger/index.html#/にアクセスするとswaggerを返す
+      tags:
+      - helloWorld
+swagger: "2.0"

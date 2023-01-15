@@ -1,0 +1,175 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "batch-redis",
+        "contact": {},
+        "license": {
+            "name": "ryuki"
+        },
+        "version": "2.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "helloWorld"
+                ],
+                "summary": "helloを返す",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.Message"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "redis"
+                ],
+                "summary": "データ送信",
+                "parameters": [
+                    {
+                        "description": "Article Json",
+                        "name": "article_json",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.Message"
+                        }
+                    }
+                }
+            }
+        },
+        "/swagger": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "helloWorld"
+                ],
+                "summary": "/swagger/index.html#/にアクセスするとswaggerを返す",
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.Message"
+                        }
+                    }
+                }
+            }
+        },
+        "/{user_id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "redis"
+                ],
+                "summary": "redis読み取り",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin_server.Message"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gin_server.Message": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "gin_server.UserRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "momentData": {
+                    "type": "object",
+                    "properties": {
+                        "accuracy": {
+                            "type": "string"
+                        },
+                        "activity": {
+                            "type": "string"
+                        },
+                        "areaLandedAt": {
+                            "type": "string"
+                        },
+                        "battery": {
+                            "type": "integer"
+                        },
+                        "heading": {
+                            "type": "number"
+                        },
+                        "isCharging": {
+                            "type": "boolean"
+                        },
+                        "isMoving": {
+                            "type": "boolean"
+                        },
+                        "latLng": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        },
+                        "movingSpeed": {
+                            "type": "integer"
+                        },
+                        "status": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

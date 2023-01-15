@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  batch_redis_api:
+    container_name: batch_redis_api
+    build: .
+    ports:
+      - "8080:8080"
+    tty: true
